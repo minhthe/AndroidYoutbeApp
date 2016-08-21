@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidYoutbeApp</string>
+    <string name="browserId">AIzaSyD-wNumKB8j3V-zx-tsU-DOaf9JGQQ-A54</string>
+    <string name="androidId">AIzaSyDn8LmHdzg7Hfd2iitCnkpykUZzXsvaM_g</string>
+    <string name="playlistId">PL6B8DaHavsG1O4YagP4gY_bbrFI9zjMGz</string>
+</resources>
+    <!--&lt;!&ndash;https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId={PLAYLIST_ID}&key={KEY}&ndash;&gt;-->
+    <!--https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=PL6B8DaHavsG1O4YagP4gY_bbrFI9zjMGz&key=AIzaSyD-wNumKB8j3V-zx-tsU-DOaf9JGQQ-A54-->
