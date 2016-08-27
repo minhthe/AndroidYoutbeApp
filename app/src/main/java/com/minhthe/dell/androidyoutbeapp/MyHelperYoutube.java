@@ -1,10 +1,15 @@
 package com.minhthe.dell.androidyoutbeapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +30,7 @@ public class MyHelperYoutube extends AsyncTask {
     Context context;
     ListView listView;
     ArrayList<ItemVideo> itemVideos;
+    String[] listVideoId ;
     public MyHelperYoutube(Context context, ListView listView) {
         this.context = context;
         this.listView = listView;
@@ -50,6 +56,7 @@ public class MyHelperYoutube extends AsyncTask {
             }
             is.close();
             JSONArray items= new JSONObject(sb.toString()).getJSONArray("items");
+            listVideoId = new String[items.length()];
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.getJSONObject(i).getJSONObject("snippet");
                 String title = item.getString("title");
@@ -58,7 +65,7 @@ public class MyHelperYoutube extends AsyncTask {
                 ItemVideo itemVideo = new ItemVideo(title,videoId);
                 itemVideos.add(itemVideo);
 
-
+                listVideoId[i] = videoId;
                 Log.d("title", title);
                 Log.d("videoId", videoId);
 
@@ -73,9 +80,18 @@ public class MyHelperYoutube extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
 
-        ArrayAdapter<ItemVideo>   arrayAdapter = new ArrayAdapter<ItemVideo>(context,android.R.layout.simple_list_item_1,itemVideos);
+        ArrayAdapter<String>   arrayAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,listVideoId);
         listView.setAdapter(arrayAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(context,((TextView) view).getText(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,YoutubeActivity.class);
+                intent.putExtra("videoId",((TextView) view).getText());
+                context.startActivity(intent);
+            }
+        });
         super.onPostExecute(o);
     }
 }
